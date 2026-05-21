@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --sv-cream: #fff4d6;
+  --sv-parchment: #f7e3a8;
+  --sv-brown-dark: #4a2e16;
+  --sv-brown-mid: #8a5a2b;
+  --sv-brown-light: #d9a86a;
+  --sv-green: #4f8f3a;
+  --sv-green-light: #a8d96a;
+  --sv-sky: #8fc7e8;
+  --sv-shadow: rgba(74, 46, 22, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#app {
+  min-height: 100vh;
+}
+
+body {
+  font-family: 'Roboto Mono', ui-monospace, monospace;
+  color: var(--sv-brown-dark);
+  background-color: var(--sv-sky);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.6) 0 6px, transparent 7px),
+    radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.5) 0 8px, transparent 9px),
+    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.45) 0 5px, transparent 6px);
+  background-size: 220px 220px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
