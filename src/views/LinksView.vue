@@ -1,135 +1,60 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useTheme } from 'vuetify'
+import LinkButton from '@/components/LinkButton.vue'
+
+const theme = useTheme()
+const isDark = computed(() => theme.global.name.value === 'dark')
+
+function toggleTheme() {
+  theme.global.name.value = isDark.value ? 'light' : 'dark'
+}
+
 const links = [
-  { label: 'Portfolio', href: 'https://example.com', icon: '🌾' },
-  { label: 'Dribbble', href: 'https://dribbble.com', icon: '🎨' },
-  { label: 'LinkedIn', href: 'https://linkedin.com', icon: '💼' },
-  { label: 'Email', href: 'mailto:hello@example.com', icon: '✉️' },
+  { label: 'Portfolio', url: 'https://example.com', icon: 'mdi-briefcase-variant' },
+  { label: 'Dribbble', url: 'https://dribbble.com', icon: 'mdi-dribbble' },
+  { label: 'LinkedIn', url: 'https://linkedin.com', icon: 'mdi-linkedin' },
+  { label: 'Email', url: 'mailto:hello@example.com', icon: 'mdi-email' },
 ]
 </script>
 
 <template>
-  <main class="page">
-    <section class="card">
-      <div class="card-inner">
-        <h1 class="name">Brooke Jackson</h1>
-        <p class="tagline">Designer · Developer · Adventurer of the Valley</p>
+  <v-main>
+    <v-container class="fill-height" fluid>
+      <v-row justify="center" align="center" no-gutters class="w-100">
+        <v-col cols="12" sm="8" md="6" lg="4" style="max-width: 480px">
+          <v-card class="pa-6 text-center" rounded="lg" elevation="6">
+            <div class="d-flex justify-end mb-n4">
+              <v-btn
+                :icon="isDark ? 'mdi-weather-sunny' : 'mdi-weather-night'"
+                variant="text"
+                size="small"
+                :aria-label="isDark ? 'Switch to light theme' : 'Switch to dark theme'"
+                @click="toggleTheme"
+              />
+            </div>
 
-        <ul class="links">
-          <li v-for="link in links" :key="link.label">
-            <a class="link-btn" :href="link.href" target="_blank" rel="noopener">
-              <span class="link-icon" aria-hidden="true">{{ link.icon }}</span>
-              <span class="link-label">{{ link.label }}</span>
-            </a>
-          </li>
-        </ul>
+            <v-avatar size="96" color="primary" class="mb-4">
+              <v-icon size="56" icon="mdi-account" />
+            </v-avatar>
 
-        <footer class="footer">~ welcome to the farm ~</footer>
-      </div>
-    </section>
-  </main>
+            <h1 class="text-h5 font-weight-bold mb-1">Brooke Jackson</h1>
+            <p class="text-body-2 text-medium-emphasis mb-6">
+              Designer · Developer · Adventurer of the Valley
+            </p>
+
+            <div class="d-flex flex-column ga-3">
+              <LinkButton
+                v-for="link in links"
+                :key="link.label"
+                :label="link.label"
+                :url="link.url"
+                :icon="link.icon"
+              />
+            </div>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-main>
 </template>
-
-<style scoped>
-.page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem 1rem;
-}
-
-.card {
-  width: 100%;
-  max-width: 480px;
-  background: var(--sv-parchment);
-  border: 4px solid var(--sv-brown-dark);
-  border-radius: 6px;
-  box-shadow:
-    0 0 0 4px var(--sv-brown-light) inset,
-    6px 6px 0 0 var(--sv-shadow);
-  padding: 6px;
-}
-
-.card-inner {
-  border: 2px dashed var(--sv-brown-mid);
-  border-radius: 3px;
-  padding: 1.75rem 1.25rem 1.25rem;
-  text-align: center;
-}
-
-.name {
-  font-family: 'Roboto Mono', monospace;
-  font-weight: 700;
-  font-size: 1.75rem;
-  letter-spacing: 0.04em;
-  color: var(--sv-brown-dark);
-  text-shadow: 2px 2px 0 var(--sv-cream);
-  margin: 0 0 0.4rem;
-  text-transform: uppercase;
-}
-
-.tagline {
-  font-size: 0.9rem;
-  color: var(--sv-brown-mid);
-  margin: 0 0 1.5rem;
-  font-style: italic;
-}
-
-.links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.link-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-  padding: 0.85rem 1rem;
-  background: var(--sv-green);
-  color: var(--sv-cream);
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border: 3px solid var(--sv-brown-dark);
-  border-radius: 4px;
-  box-shadow:
-    0 0 0 2px var(--sv-green-light) inset,
-    4px 4px 0 0 var(--sv-shadow);
-  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease;
-}
-
-.link-btn:hover {
-  background: var(--sv-green-light);
-  color: var(--sv-brown-dark);
-}
-
-.link-btn:active {
-  transform: translate(4px, 4px);
-  box-shadow:
-    0 0 0 2px var(--sv-green-light) inset,
-    0 0 0 0 var(--sv-shadow);
-}
-
-.link-icon {
-  font-size: 1.1rem;
-}
-
-.link-label {
-  flex: 1;
-  text-align: center;
-}
-
-.footer {
-  margin-top: 1.75rem;
-  font-size: 0.8rem;
-  color: var(--sv-brown-mid);
-  letter-spacing: 0.1em;
-}
-</style>
